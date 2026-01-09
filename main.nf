@@ -10,12 +10,14 @@ include { SAMTOOLS_MPILEUP_DEAM3  } from './modules/local/samtools_mpileup'
 include { GET_VARIABLE_POSITIONS  } from './modules/local/get_variable_positions'
 include { FILTER_BAM         } from './modules/local/filter_bam'
 include { MASK_DEAMINATION   } from './modules/local/mask_deamination'
+include { SUMMARIZE_PHYLOTREE } from './modules/local/parse_phylotree'
 
 // load the files
 
-ch_split      = Channel.fromPath("${params.split}/*"  ,checkIfExists:true) // input-data
+ch_split      = Channel.fromPath("${params.split}/*"   ,checkIfExists:true) // input-data
 ch_reference  = Channel.fromPath("${params.reference}" ,checkIfExists:true) // Reference genome (RSRS)
-ch_bedfile    = Channel.fromPath("${params.bedfile}"  ,checkIfExists:true) // bedfile (poly-c stretches)
+ch_bedfile    = Channel.fromPath("${params.bedfile}"   ,checkIfExists:true) // bedfile (poly-c stretches)
+ch_treexml    = Channel.fromPath("${params.treexml}"   ,checkIfExists:true) // phylotree17 XML
 
 ch_versions = Channel.empty()
 
@@ -137,7 +139,11 @@ MASK_DEAMINATION(FILTER_BAM.out.bam)
 SAMTOOLS_MPILEUP_DEAM3(MASK_DEAMINATION.out.bam)
 
 //
-// 
+// 9. Summarize the data based on the phylotree XML 
 //
+
+ch_for_phylotree = SAMTOOLS_MPILEUP_DEAM3.out.tsv.combine(ch_treexml)
+
+SUMMARIZE_PHYLOTREE(ch_for_phylotree)
 
 }
