@@ -34,9 +34,11 @@ The columns in the tables are
 
 ## Example
 
-An example for the 'best-path' file of data from an haplogroup individual (~3x genomic coverage in the deaminated sequences) can be found [here](assets/example_hapU.tsv)
+An example for the 'best-path' file of data from an haplogroup individual (~3x genomic coverage in the deaminated sequences) can be found [here](assets/example_hapU.tsv). The interpretation:
 
-See the high penalty-values for the U-subgroups, indicating a better support for the ancestral node (U)
+- High penalty-value (3) for the U8 subgroup indicates a better support for the ancestral node (U or U2'3'4'7'8'9)
+- The U8 is only supported by hits to K-positions
+- The detected 'K' and 'K1a4a1e' haplogroup positions are only supported by 'ancestral' positions (16311T! and 152!, see L2'3'4'5'6 and L3)
 
 
 ## Workflow
