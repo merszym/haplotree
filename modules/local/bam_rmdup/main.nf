@@ -1,6 +1,6 @@
 process BAM_RMDUP {
     container (workflow.containerEngine ? "merszym/biohazard_bamrmdup:v0.2.2" : null)
-    tag "${meta.id}"
+    tag "Remove Duplicates: ${meta.id}"
     label "process_low"
     label 'local'
 

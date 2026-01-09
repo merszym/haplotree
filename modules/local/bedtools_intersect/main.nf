@@ -4,7 +4,7 @@ process BEDTOOLS_INTERSECT {
         'quay.io/biocontainers/bedtools:2.30.0--h468198e_3' }"
     label "process_low"
     label 'local'
-    tag "${meta.id}"
+    tag "Remove Poly-C Stretches: ${meta.id}"
 
     input:
     tuple val(meta), path(bam), path(bedfile)

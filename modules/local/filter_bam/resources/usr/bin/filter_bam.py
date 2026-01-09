@@ -17,7 +17,7 @@ def main(bamfile, positions, doublestranded=False):
     #
     # main loop
     #
-    revcomp_table = str.maketrans('ACGTNacgtn', 'TGCANtgcan')
+    revcomp_table = str.maketrans('ACGTNacgtn-', 'TGCANtgcan-')
 
     # Iterate the bamfile
     for read in infile:
@@ -38,7 +38,7 @@ def main(bamfile, positions, doublestranded=False):
 
         if read.is_reverse:
             ref = ref.translate(revcomp_table)[::-1]
-            seq = read.get_forward_sequence()
+            seq = seq.translate(revcomp_table)[::-1]
         
         rlen = len(seq)
         # check if C>T (or G>A) substitutions in the first or last 3 postions

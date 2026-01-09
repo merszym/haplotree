@@ -1,6 +1,6 @@
 process MAP_BWA {
     container (workflow.containerEngine ? "merszym/network-aware-bwa:v0.5.10" : null)
-    tag "${meta.id}"
+    tag "Map to RSRS: ${meta.id}"
     label "process_low"
     label 'local'
 

@@ -2,7 +2,7 @@ process SAMTOOLS_SORT{
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/samtools:1.15.1--h1170115_0' :
         'quay.io/biocontainers/samtools:1.15.1--h1170115_0' }"
-    tag "$meta.id"
+    tag "Filter and Sort: $meta.id"
     label "local"
 
     input:
@@ -15,7 +15,8 @@ process SAMTOOLS_SORT{
     script:
     def args = task.ext.args ?: ''
     """
-    samtools sort $args -o sorted_${extracted_bam}  ${extracted_bam}
+    samtools view -b -u -q 25 -o filtered_${extracted_bam} ${extracted_bam}
+    samtools sort $args -o sorted_${extracted_bam}  filtered_${extracted_bam}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
