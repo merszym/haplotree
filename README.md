@@ -21,15 +21,16 @@ NXF_VER=24.04.4 nextflow run merszym/haplotree --split INPUT-DIR
 
 The pipeline produces three files for each input-file (in `out/06_haplogroups/`):
 1. Summary statistics for each node in the tree (**Complete**)
-2. Summary statistics for each node in the tree that is covered by sequences (**Most useful**)
+2. Summary statistics for the tree, but branches with penalty-values >=3 or 0% node support are pruned
 3. Summary statistics for a single 'best' path (**provides a quick look, which nodes are dominant**)
+    - Note: This is experimental! This 'best' path is often too simple and needs manual verification!
 
 The columns in the tables are
 
 - **PhyloTree:** The Haplogroup Relationship in PhyloTree 17
 - **NodeCoverage:** Accumulated values of the 'PositionCoverage' column in the full node subtree (sum of all children)
 - **PositionCoverage:** For all Haplogroup-defining positions, count the ones that share the diagnostic allel and the once covered by at least 1 read (see 'ReadCoverage'). E.g. 2/2 = 2 positions out of 2 share the haplogroup-defining state
-- **Penalty:** If a node is not supported, the penalty shows the number of nodes that are skipped before reaching a supported child-node in the same branch. The higher the penalty, the more a branch is supported only by single hits in the tips, rather than by following the tree top-down
+- **Penalty:** If a node is not supported, the penalty shows the closest distance to the a child-node with support in the same branch.
 - **ReadCoverage:** Shows for each _diagnostic position_ the number of sequences covering that position and the support for the diagnostic state in %.
 
 ## Example
