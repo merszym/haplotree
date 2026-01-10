@@ -76,7 +76,7 @@ for haplogroup in tree.getElementsByTagName('haplogroup'):
                 poly_string = f"{poly_data} ({perc:.2f}% {target}/{cov})"
                 if cov > 0:
                     found_covered += 1
-                if target > 0:
+                if perc > 10:
                     found_target += 1
                 polys.append(poly_string)
             data.append(polys)
